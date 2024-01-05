@@ -1,20 +1,54 @@
 pipeline {
-    agent { label 'workers' }
+    agent none
+
+
+
+    
+    
     stages {
-        stage('hello') {
+
+        stage('git-clone') {
+        agent any
+        steps{
+            checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
+
+
+        }
+        }
+        stage('build-docker') {
+            agent any
             steps {
-                echo 'Hello World!!!'
+                sh 'cd final-project/employees'
+                sh 'docker build . project-tl:1'
             }
         }
-        stage('cat') {
-            when {
-                branch 'dev*'
+        stage('upload-docker'){
+            agent any
+
+            steps{
+
+                sh 'echo "hello word"'
+       
+
             }
-            steps {
-                sh '''
-                cat README.md
-                '''
+
+
+
+        }
+        stage('test-app'){
+            agent {
+                docker{image 'project-tl:1'}
+            }
+
+            steps{
+                sh 'cd /app/final-project/employees'
+                sh 'python -m unitest.py'
+
+
             }
         }
+
+        
     }
+
 }
