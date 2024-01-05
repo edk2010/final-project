@@ -1,4 +1,7 @@
 # start by pulling the python image
+#sudo docker run -p 5000:5000 -d test:3
+
+
 #FROM python:3.8-alpine
 FROM python:3.8-slim
 WORKDIR /app
@@ -7,6 +10,9 @@ WORKDIR /app
 #COPY ./employees.py /app/employees.py
 #RUN mkdir /app
 #RUN cd /app
+#sudo docker run -p 5000:5000 -d test:3 
+
+
 RUN apt-get -y update
 RUN apt-get -y install git
 RUN git clone https://github.com/edk2010/final-project.git
