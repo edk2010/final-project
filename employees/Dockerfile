@@ -7,7 +7,7 @@ WORKDIR /app
 #COPY ./employees.py /app/employees.py
 #RUN mkdir /app
 #RUN cd /app
-RUN apt install git -y
+RUN apt install git
 RUN git clone https://github.com/edk2010/final-project.git
 #RUN cd final-project/employees
 WORKDIR /app/final-project/employees
