@@ -2,6 +2,7 @@
 import json
 from flask import Flask, jsonify, request
 app = Flask(__name__)
+app.debug = True
 
 employees = [
  { 'id': 1, 'name': 'Ashley' },
@@ -70,5 +71,5 @@ def delete_employee(id: int):
  return jsonify(employee), 200
 
 if __name__ == '__main__':
-   app.debug = True
+   
    app.run(port=5000)
