@@ -18,7 +18,7 @@ RUN pip install -r requirements.txt
 # switch working directory
 
 
-EXPOSE 5000
+#EXPOSE 5000
 
 
 # configure the container to run in an executed manner
