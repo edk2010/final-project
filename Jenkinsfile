@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    
 
     stages {
         stage('git-clone') {
@@ -14,7 +14,17 @@ pipeline {
             }
         }
 
-        
+        stage(docker build and test){
+            agent { dockerfile true}
+            steps {
+                sh 'cd /app/final-project/employees'
+                sh 'python unitest.py'
+
+            }
+
+
+
+        }
 
         stage('upload-docker') {
             steps {
