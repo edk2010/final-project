@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage(docker build and test){
+        stage('docker build and test'){
             agent { dockerfile true}
             steps {
                 sh 'cd /app/final-project/employees'
