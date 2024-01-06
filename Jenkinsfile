@@ -13,16 +13,7 @@ pipeline {
             }
         }
 
-        stage('build-docker') {
-            steps {
-                //script {
-                    // Build Docker image
-                    //dir('employees') {
-                        //docker.build('project-tl:1')
-                    //}
-                //}
-            }
-        }
+        
 
         stage('upload-docker') {
             steps {
