@@ -10,7 +10,7 @@ pipeline {
         stage('git-clone') {
         agent any
         steps{
-            checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
+            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
 
 
         }
