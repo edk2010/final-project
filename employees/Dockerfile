@@ -20,7 +20,7 @@ RUN git clone https://github.com/edk2010/final-project.git
 WORKDIR /app/final-project/employees
 # install the dependencies and packages in the requirements file
 RUN pip install --no-cache-dir -r requirements.txt
-
+RUN python unitest.py
 
 # switch working directory
 
@@ -30,5 +30,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
-
+#CMD [ "unitest.py" ]
 CMD ["employees.py" ]
+
