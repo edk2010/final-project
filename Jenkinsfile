@@ -17,12 +17,18 @@ pipeline {
         }
 
         stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-            steps {
-              dock = docker.build("project-tl:1")
-             }
+        / steps {
+             // One or more steps need to be included within the steps block.
+                }
+
+            agent {
+                 dockerfile {
+                filename 'Dockerfile'
+                }
+                }
             }
+
+           
 
 
 
