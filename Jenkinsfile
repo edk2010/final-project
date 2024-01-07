@@ -1,4 +1,4 @@
-def dock;
+
 pipeline {
     
     agent any
@@ -19,7 +19,7 @@ pipeline {
         stage('Build image') {
             steps {
              script {
-                    dock = docker.build("--no-cache","project-tl:1","Dockerfile")
+                  def dock = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
                 }
                 
                 }
