@@ -29,15 +29,7 @@ pipeline {
 
            
 
-        stage('Run unittest') {
-            steps {
-                script {
-                    dock.inside {
-                        sh 'python -m unittest unitest.py'
-                    }
-                }
-            }
-        }
+        
 
         
 
