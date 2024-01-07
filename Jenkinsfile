@@ -19,7 +19,7 @@ pipeline {
         stage('Build image') {
             steps {
              script {
-                    dock = docker.build('project-tl:1','Dockerfile',"--no-cache")
+                    dock = docker.build('project-tl:1',"--no-cache")
                 }
                 
                 }
