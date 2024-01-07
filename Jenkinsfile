@@ -1,5 +1,6 @@
+def dock;
 pipeline {
-    def dock
+    
     agent any
     
     stages {
