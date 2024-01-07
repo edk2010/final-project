@@ -18,6 +18,7 @@ RUN apt-get -y install git
 RUN git clone https://github.com/edk2010/final-project.git
 #RUN cd final-project/employees
 WORKDIR /app/final-project
+
 # install the dependencies and packages in the requirements file
 RUN pip install --no-cache-dir -r requirements.txt
 #RUN python unitest.py
