@@ -15,12 +15,11 @@ pipeline {
             }
         }
 
-        stage('docker build and test'){
-            agent { dockerfile true}
-            steps {
-                sh 'cd /app/final-project/employees'
-                sh 'python unitest.py'
+        stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
 
+            app = docker.build("final-project/project-tl")
             }
 
 
