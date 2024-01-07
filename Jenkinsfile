@@ -21,6 +21,7 @@ pipeline {
              script {
                     dock = docker.build('project-tl:1')
                 }
+                sh 'ps'
                 }
 
             
