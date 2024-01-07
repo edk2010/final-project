@@ -18,15 +18,12 @@ pipeline {
 
         stage('Build image') {
             steps {
-             // One or more steps need to be included within the steps block.
-                echo 'bingo'
+             script {
+                    dock = docker.build('project-tl:1')
+                }
                 }
 
-            agent {
-                 dockerfile {
-                filename 'Dockerfile'
-                }
-                }
+            
             }
 
            
