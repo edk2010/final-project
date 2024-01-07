@@ -1,5 +1,5 @@
 pipeline {
-    
+    def dock
     agent any
     
     stages {
@@ -19,7 +19,7 @@ pipeline {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
             steps {
-              app = docker.build("final-project/project-tl")
+              dock = docker.build("final-project/project-tl")
              }
             }
 
