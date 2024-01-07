@@ -20,7 +20,8 @@ pipeline {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
             steps {
-              dock = docker.build("final-project/project-tl")
+              //dock = 
+              docker.build("project-tl:1")
              }
             }
 
