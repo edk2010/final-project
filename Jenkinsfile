@@ -34,8 +34,8 @@ pipeline {
 
                 script{
 
-                    dockerImage.run()
-                    dockerImage.inside() {
+                    dockerImage.run
+                    dockerImage.inside{
                     sh 'uname -n'
                     sh 'git status'
                     sh 'ls /'
