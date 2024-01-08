@@ -11,7 +11,6 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    // Build the Docker image and tag it
                     dockerImage = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
                 }
             }
@@ -20,12 +19,12 @@ pipeline {
         stage('run unitest') {
             steps {
                 script {
-                    // Use 'dockerImage.inside' to run commands inside the Docker container
-                    dockerImage.inside {
+                    // Start a container and keep it running
+                    dockerImage.inside("-u root") {
+                        // Execute your unit test commands here
                         sh 'uname -n'
                         sh 'git status'
                         sh 'ls /'
-                        // Include your unit test commands here
                     }
                 }
             }
@@ -39,5 +38,9 @@ pipeline {
         }
     }
 
-    
+    post {
+        always {
+            // Post-build actions
+        }
+    }
 }
