@@ -19,7 +19,7 @@ pipeline {
         stage('Build image') {
             steps {
              script {
-                  def dockerImage = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
+                  def dock = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
                 }
                 
                 }
@@ -34,8 +34,8 @@ pipeline {
 
                 script{
 
-                    dockerImage.run
-                    dockerImage.inside{
+                    dock.run
+                    dock.inside{
                     sh 'uname -n'
                     sh 'git status'
                     sh 'ls /'
