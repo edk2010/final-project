@@ -22,10 +22,10 @@ pipeline {
                     // Start a container and keep it running
                     dockerImage.inside("-u root") {
                         // Execute your unit test commands here
-                        sh 'uname -n'
-                        sh 'ls /'
+                        sh 'python -m unittest unitest.py'
+                        
                     }
-                    //dockerImage.stop
+                    
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage('upload-docker') {
             steps {
                 echo 'hello world'
-                // Add Docker push commands here if necessary
+                
             }
         }
     }
