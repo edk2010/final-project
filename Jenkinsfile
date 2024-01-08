@@ -19,7 +19,7 @@ pipeline {
         stage('Build image') {
             steps {
              script {
-                  def dockerImage = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
+                  def dock = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
                 }
                 
                 }
@@ -33,7 +33,7 @@ pipeline {
             steps{
 
                 script{
-                    def container = dockerImage.run("--rm -d")
+                    def container = dock.run("--rm -d")
                     
                     container.inside{
                     sh 'uname -n'
