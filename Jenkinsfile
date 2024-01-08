@@ -38,9 +38,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Post-build actions
-        }
-    }
+   
 }
