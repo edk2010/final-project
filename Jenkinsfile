@@ -1,64 +1,38 @@
-
+def dockerImage;
 pipeline {
-    
     agent any
-    
+
+
+
     stages {
-        stage('git-clone') {
+        stage('checkout') {
             steps {
-                //script {
-                    // Clone the Git repository
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
-                    //git 'https://github.com/edk2010/final-project.git'
-                    //git branch: 'main', url: 'https://github.com/edk2010/final-project.git'
-
-                //}
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
             }
         }
-
-        stage('Build image') {
+        stage('Build Docker Image') {
             steps {
-             script {
-                  def dockerImage = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
+                script {
+                    dockerImage = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
                 }
-                
-                }
-
-            
             }
 
-           
-        stage('run unitest'){
+        }
 
-            steps{
-
-                script{
-                    def container = dockerImage.run("--rm -d")
-                    
-                    container.inside{
-                    sh 'uname -n'
-                    sh 'git status'
-                    sh 'ls /'
+        stage('Run unittest') {
+            steps {
+                script {
+                    dockerImage.inside {
+                        sh 'ls /'
+                        sh 'pwd'
                     }
-                    
-                        container.stop()
-                    
                 }
-
-            }
-
-        }
-        
-
-        
-
-        stage('upload-docker') {
-            steps {
-                echo 'hello world'
-                
             }
         }
-
         
-        }
+        
+       
+
     }
+
+}
