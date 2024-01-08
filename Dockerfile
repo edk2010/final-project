@@ -14,6 +14,7 @@ WORKDIR /app
 
 COPY . /app
 RUN apt-get -y update
+RUN pip install --upgrade pip
 #RUN apt-get -y install git
 #RUN git clone https://github.com/edk2010/final-project.git
 #RUN cd final-project/employees
