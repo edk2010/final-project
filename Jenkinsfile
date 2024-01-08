@@ -1,64 +1,51 @@
-
+def dock 
 pipeline {
-    
     agent any
     
     stages {
         stage('git-clone') {
             steps {
-                //script {
-                    // Clone the Git repository
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
-                    //git 'https://github.com/edk2010/final-project.git'
-                    //git branch: 'main', url: 'https://github.com/edk2010/final-project.git'
-
-                //}
+                checkout scm
             }
         }
 
         stage('Build image') {
             steps {
-             script {
-                  def dock = docker.build("project-tl:1", "--no-cache -f Dockerfile .")
+                script {
+                    // The 'docker.build' should have a tag that usually includes a version number or 'latest'
+                    dock = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
                 }
-                
-                }
-
-            
             }
+        }
 
-           
-        stage('run unitest'){
-
-            steps{
-
-                script{
+        stage('run unitest') {
+            steps {
+                script {
+                    // You need to reference 'dock' from the previous stage, which can be done by declaring it outside the stages block
                     def container = dock.run("--rm -d")
                     
-                    container.inside{
-                    sh 'uname -n'
-                    sh 'git status'
-                    sh 'ls /'
+                    container.inside {
+                        // The commands inside here should be relevant to your unit tests
+                        sh 'uname -n'
+                        sh 'git status'
+                        sh 'ls /'
                     }
                     
-                        container.stop()
-                    
+                    container.stop()
                 }
-
             }
-
         }
-        
-
-        
 
         stage('upload-docker') {
             steps {
                 echo 'hello world'
-                
+                // You should include steps to push the Docker image to a registry here
             }
         }
-
-        
+    }
+    post {
+        always {
+            // Include post-build actions such as cleaning up Docker images or sending notifications
         }
     }
+}
