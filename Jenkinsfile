@@ -1,4 +1,3 @@
-def dock 
 pipeline {
     agent any
     
@@ -12,8 +11,8 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    // The 'docker.build' should have a tag that usually includes a version number or 'latest'
-                    dock = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
+                    // Build the Docker image and tag it
+                    dockerImage = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
                 }
             }
         }
@@ -21,17 +20,13 @@ pipeline {
         stage('run unitest') {
             steps {
                 script {
-                    // You need to reference 'dock' from the previous stage, which can be done by declaring it outside the stages block
-                    def container = dock.run("--rm -d")
-                    
-                    container.inside {
-                        // The commands inside here should be relevant to your unit tests
+                    // Use 'dockerImage.inside' to run commands inside the Docker container
+                    dockerImage.inside {
                         sh 'uname -n'
                         sh 'git status'
                         sh 'ls /'
+                        // Include your unit test commands here
                     }
-                    
-                    container.stop()
                 }
             }
         }
@@ -39,9 +34,10 @@ pipeline {
         stage('upload-docker') {
             steps {
                 echo 'hello world'
-                // You should include steps to push the Docker image to a registry here
+                // Add Docker push commands here if necessary
             }
         }
     }
+
     
 }
