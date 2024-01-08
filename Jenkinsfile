@@ -33,14 +33,16 @@ pipeline {
             steps{
 
                 script{
-
-                    dock.run
-                    dock.inside{
+                    def container = dock.run("--rm -d")
+                    
+                    container.inside{
                     sh 'uname -n'
                     sh 'git status'
                     sh 'ls /'
                     }
-
+                    
+                        container.stop()
+                    
                 }
 
             }
