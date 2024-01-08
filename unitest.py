@@ -9,7 +9,7 @@ class TestEmployeeFunctions(unittest.TestCase):
 
     def test_get_employee(self):
         # Assuming there's an employee with id 1
-        employee = get_employee()
+        employee = get_employee(1)
         self.assertIsNotNone(employee)
         self.assertEqual(employee['id'], 1)
         self.assertEqual(employee['name'], 'Ashley')
@@ -39,7 +39,7 @@ class TestEmployeeFunctions(unittest.TestCase):
         updated_employee_data = {'name': 'Updated Name'}
         app.test_client().put('/employees/1', data=json.dumps(updated_employee_data), content_type='application/json')
 
-        updated_employee = get_employee()
+        updated_employee = get_employee(1)
         self.assertIsNotNone(updated_employee)
         self.assertEqual(updated_employee['name'], 'Updated Name')
 
@@ -50,7 +50,7 @@ class TestEmployeeFunctions(unittest.TestCase):
         app.test_client().delete('/employees/1')
 
         self.assertEqual(len(employees), initial_employee_count - 1)
-        self.assertIsNone(get_employee())
+        self.assertIsNone(get_employee(1))
 
 if __name__ == '__main__':
     unittest.main()
