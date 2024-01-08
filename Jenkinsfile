@@ -43,9 +43,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            // Include post-build actions such as cleaning up Docker images or sending notifications
-        }
-    }
+    
 }
