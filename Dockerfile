@@ -32,6 +32,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # configure the container to run in an executed manner
 #ENTRYPOINT [ "python" ]
-CMD ["tail", "-f", "/dev/null"]
-#CMD ["employees.py" ]
+#CMD ["tail", "-f", "/dev/null"]
+CMD ["python","employees.py" ]
 
