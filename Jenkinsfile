@@ -23,9 +23,9 @@ pipeline {
                     dockerImage.inside("-u root") {
                         // Execute your unit test commands here
                         sh 'uname -n'
-                        sh 'git status'
                         sh 'ls /'
                     }
+                    dockerImage.stop
                 }
             }
         }
