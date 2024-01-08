@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git-clone') {
             steps {
-                checkout scm
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
             }
         }
 
