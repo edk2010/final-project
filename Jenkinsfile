@@ -25,7 +25,7 @@ pipeline {
                         sh 'uname -n'
                         sh 'ls /'
                     }
-                    dockerImage.stop
+                    //dockerImage.stop
                 }
             }
         }
