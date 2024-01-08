@@ -28,7 +28,24 @@ pipeline {
             }
 
            
+        stage('run unitest'){
 
+            steps{
+
+                script{
+
+                    dock.image.inside() {
+                    PWD = sh (
+                    script: 'pwd',
+                    returnStdout: true
+                    ).trim()
+                    }
+
+                }
+
+            }
+
+        }
         
 
         
