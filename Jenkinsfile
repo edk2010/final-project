@@ -34,7 +34,8 @@ pipeline {
 
                 script{
 
-                    docker.image('project-tl:1').inside() {
+                    dock.run()
+                    dock.inside() {
                     sh 'uname -n'
                     sh 'git status'
                     sh 'ls /'
