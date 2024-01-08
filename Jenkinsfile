@@ -34,11 +34,10 @@ pipeline {
 
                 script{
 
-                    dock.image.inside() {
-                    PWD = sh (
-                    script: 'pwd',
-                    returnStdout: true
-                    ).trim()
+                    docker.image('project-tl:1').inside() {
+                    sh 'uname -n'
+                    sh 'git status'
+                    sh 'ls /'
                     }
 
                 }
