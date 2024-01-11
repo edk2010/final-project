@@ -141,3 +141,5 @@ def delete_user_by_user_id(data,user_id):
     data = [e for e in data if e['id'] != int(user_id)]
      #write_json_to_s3(data, bucket, key)
     return True
+def get_maximum_id(data):
+    pass
