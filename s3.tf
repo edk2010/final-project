@@ -1,7 +1,7 @@
 provider "aws" {
   region = "eu-west-1"
-}
-
+}   
+/*
 resource "aws_s3_bucket" "project-tl" {
   bucket = "project-tl"
 
@@ -21,5 +21,6 @@ resource "aws_s3_object" "data" {
   
 
 }
+*/
 
 
