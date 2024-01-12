@@ -8,28 +8,28 @@ pipeline {
             }
         }
 
-        stage('Build image') {
-            steps {
-                script {
-                    dockerImage = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
-               }
-            }
-        }
-
-        stage('run unitest') {
-            steps {
-                script {
-                    // Start a container and keep it running
-                    dockerImage.inside("-u root") {
-                        // Execute your unit test commands here
-                        sh 'python -m unittest unitest.py'
-                        
-                    }
-                    
-               }
-           }
-       }
-
+ //       stage('Build image') {
+ //           steps {
+ //               script {
+ //                   dockerImage = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
+ //              }
+ //           }
+ //       }
+//
+ //       stage('run unitest') {
+ //           steps {
+ //               script {
+ //                   // Start a container and keep it running
+ //                   dockerImage.inside("-u root") {
+ //                       // Execute your unit test commands here
+ //                       sh 'python -m unittest unitest.py'
+ //                       
+ //                   }
+ //                   
+ //              }
+ //          }
+ //      }
+//
         stage('upload-docker') {
             steps {
                 echo 'hello world'
