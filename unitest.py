@@ -1,56 +1,47 @@
-import json
 import unittest
-from employees import app, get_employee, employee_is_valid, employees
+from unittest.mock import MagicMock
+from mylambda import lambda_handler, add_user, get_user_by_user_id, get_user_by_user_name, delete_user_by_user_id
 
-class TestEmployeeFunctions(unittest.TestCase):
-
+class TestLambdaFunction(unittest.TestCase):
     def setUp(self):
-        app.testing = True
+        # Setup any necessary configurations or test data
+        self.mock_s3_client = MagicMock()
+        self.mock_s3_client.get_object.return_value = {
+            'Body': MagicMock(read=MagicMock(return_value='[{"id": 1, "name": "user1"}]'))
+        }
 
-    def test_get_employee(self):
-        # Assuming there's an employee with id 1
-        employee = get_employee(1)
-        self.assertIsNotNone(employee)
-        self.assertEqual(employee['id'], 1)
-        self.assertEqual(employee['name'], 'Ashley')
+    def test_lambda_handler_check_id(self):
+        event = {'queryStringParameters': {'operation': 'check_id', 'user_id': '1'}}
+        context = {}
+        response = lambda_handler(event, context, s3=self.mock_s3_client)
+        expected_response = {
+            'statusCode': 200,
+            'body': '{"receivedParam1": "check_id", "receivedParam2": "1", "full_name": null, "Data": [{"id": 1, "name": "user1"}], "message": {"id": 1, "name": "user1"}}',
+            'headers': {'Content-Type': 'application/json'}
+        }
+        self.assertEqual(response, expected_response)
 
-        # Assuming there's no employee with id 100
-        non_existent_employee = get_employee(100)
-        self.assertIsNone(non_existent_employee)
+    def test_add_user(self):
+        data = [{"id": 1, "name": "user1"}]
+        user_name = "user2"
+        result = add_user(data, user_name)
+        self.assertTrue(result)
+        self.assertEqual(len(data), 2)
+        self.assertEqual(data[-1]['name'], user_name)
 
-    def test_employee_is_valid(self):
-        valid_employee = {'name': 'John Doe'}
-        self.assertTrue(employee_is_valid(valid_employee))
+    def test_get_user_by_user_id_found(self):
+        data = [{"id": 1, "name": "user1"}]
+        user_id = "1"
+        user = get_user_by_user_id(data, user_id)
+        self.assertEqual(user, {"id": 1, "name": "user1"})
 
-        invalid_employee = {'name': 'Jane Doe', 'position': 'Manager'}
-        self.assertFalse(employee_is_valid(invalid_employee))
+    def test_get_user_by_user_id_not_found(self):
+        data = [{"id": 1, "name": "user1"}]
+        user_id = "2"
+        user = get_user_by_user_id(data, user_id)
+        self.assertIsNone(user)
 
-    def test_create_employee(self):
-        initial_employee_count = len(employees)
-
-        new_employee = {'name': 'John Doe'}
-        app.test_client().post('/employees', data=json.dumps(new_employee), content_type='application/json')
-
-        self.assertEqual(len(employees), initial_employee_count + 1)
-        self.assertEqual(employees[-1]['name'], 'John Doe')
-
-    def test_update_employee(self):
-        # Assuming there's an employee with id 1
-        updated_employee_data = {'name': 'Updated Name'}
-        app.test_client().put('/employees/1', data=json.dumps(updated_employee_data), content_type='application/json')
-
-        updated_employee = get_employee(1)
-        self.assertIsNotNone(updated_employee)
-        self.assertEqual(updated_employee['name'], 'Updated Name')
-
-    def test_delete_employee(self):
-        initial_employee_count = len(employees)
-
-        # Assuming there's an employee with id 1
-        app.test_client().delete('/employees/1')
-
-        self.assertEqual(len(employees), initial_employee_count - 1)
-        self.assertIsNone(get_employee(1))
+    # Add similar tests for get_user_by_user_name, delete_user_by_user_id, and other functions
 
 if __name__ == '__main__':
     unittest.main()

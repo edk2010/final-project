@@ -56,18 +56,7 @@ pipeline {
          
 
 
-  //      stage('get lambda_function_url') {
-  //          steps {
-  //              script {
-  //                  def jsonSlurper = new JsonSlurper()
-  //                  def output = sh(script: 'terraform output -json', returnStdout: true).trim()
-  //                  def jsonOutput = jsonSlurper.parseText(output)
-//
-  //                  echo "lambda_function_url: ${jsonOutput.lambda_function_url.value}"
-  //              }
-  //          }
-  //      
-  //      }
+
     stage('get lambda_function_url') {
         steps {
             script {
