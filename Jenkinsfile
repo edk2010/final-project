@@ -72,7 +72,7 @@ pipeline {
         steps {
             script {
             def terraform_state = readJSON file: "./terraform.tfstate"
-            echo "${terraform_state.outputs.lambda_function_url}"
+            echo "${terraform_state.outputs.lambda_function_url["value"]}"
             }
     }
 }
