@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import net.sf.json.JSONArray
 pipeline {
     agent any
     stages{
@@ -70,14 +71,8 @@ pipeline {
     stage('get lambda_function_url') {
         steps {
             script {
-             def jsonSlurper = new JsonSlurper()
-             def output = sh(script: 'terraform output -json', returnStdout: true).trim()
-             def jsonOutput = jsonSlurper.parseText(output)
-
-            // Assuming "lambda_function_url" is a direct output variable
-            def lambdaFunctionUrl = jsonOutput.lambda_function_url.value
-
-            echo "lambda_function_url: ${lambdaFunctionUrl}"
+               def lambda_function_url = readJSON(text: output).lambda_function_url
+               echo "${lambda_function_url}"
         }
     }
 }
