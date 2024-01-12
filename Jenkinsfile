@@ -47,7 +47,7 @@ pipeline {
             sh "terraform plan" 
          }
       }
-         stage ('Terraform Apply & Deploy Docker Image on Webserver'){
+         stage ('Terraform Apply & Deploy lambda and s3'){
             steps {
             sh "terraform apply -auto-approve"
         }
