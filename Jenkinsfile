@@ -1,6 +1,3 @@
-    agent any
-    
-    stages {
 pipeline {
         stage('git-clone') {
             steps {
