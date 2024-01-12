@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 pipeline {
     agent any
     stages{
@@ -51,18 +52,22 @@ pipeline {
             sh "terraform apply -auto-approve"
         }
       }
-         stage('get lambda_function_url') {
+         
+
+
+        stage('get lambda_function_url') {
             steps {
                 script {
-                    // Extract Terraform output
-                    def jsonOutput = sh(script: 'terraform output -json', returnStdout: true).trim()
-                    def outputs = readJSON text: jsonOutput
+                    def jsonSlurper = new JsonSlurper()
+                    def output = sh(script: 'terraform output -json', returnStdout: true).trim()
+                    def jsonOutput = jsonSlurper.parseText(output)
 
-                    // Use the outputs in your pipeline
-                    echo "lambda_function_url: ${outputs.lambda_function_url.value}"
+                    echo "lambda_function_url: ${jsonOutput.lambda_function_url.value}"
                 }
             }
+        
         }
+
 
     }
     
