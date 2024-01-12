@@ -19,7 +19,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 
 */
 
-data "archive_file" "lambda" {
+data "archive_file" "mylambda" {
   type        = "zip"
   source_file = "./mylambda.py"
   output_path = "lambda_function_payload.zip"
@@ -38,7 +38,7 @@ resource "aws_lambda_function" "test_lambda" {
   role          = data.aws_iam_role.lambda_rw_s3.arn
   handler       = "mylambda.lambda_handler"
 
-  source_code_hash = data.archive_file.lambda.output_base64sha256
+  source_code_hash = data.archive_file.mylambda.output_base64sha256
 
   runtime = "python3.10"
 
