@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY ./lambda.py /app
 COPY ./unitest.py /app
+COPY ./requirements.txt /app
 RUN apt-get -y update
 RUN pip install --upgrade pip
 
