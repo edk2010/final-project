@@ -72,7 +72,7 @@ pipeline {
            steps {
                script {
                    // Start a container and keep it running
-                   dockerImage.inside("-u root") {
+                   //dockerImage.inside("-u root") {
                        // Execute your unit test commands here
                        sh 'python -m unittest unitest_api.py ${terraform_state.outputs.lambda_function_url["value"]}'
                        
