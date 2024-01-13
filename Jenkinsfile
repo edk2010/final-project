@@ -5,32 +5,33 @@ pipeline {
     stages{
         stage('git-clone') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
+                //checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/edk2010/final-project.git']])
+                checkout scm
             }
         }
 
- //       stage('Build image') {
- //           steps {
- //               script {
- //                   dockerImage = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
- //              }
- //           }
- //       }
-//
- //       stage('run unitest') {
- //           steps {
- //               script {
- //                   // Start a container and keep it running
- //                   dockerImage.inside("-u root") {
- //                       // Execute your unit test commands here
- //                       sh 'python -m unittest unitest.py'
- //                       
- //                   }
- //                   
- //              }
- //          }
- //      }
-//
+       stage('Build image') {
+           steps {
+               script {
+                   dockerImage = docker.build("project-tl:latest", "--no-cache -f Dockerfile .")
+              }
+           }
+       }
+
+       stage('run unitest') {
+           steps {
+               script {
+                   // Start a container and keep it running
+                   dockerImage.inside("-u root") {
+                       // Execute your unit test commands here
+                       sh 'python -m unittest unitest.py'
+                       
+                   }
+                   
+              }
+          }
+      }
+
         stage('upload-docker') {
             steps {
                 echo 'hello world'
