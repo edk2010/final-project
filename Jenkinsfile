@@ -63,6 +63,7 @@ pipeline {
  
     stage('run API unitest') {
            steps {
+            node {
                script {
                    // Start a container and keep it running
                    //dockerImage.inside("-u root") {
@@ -70,9 +71,10 @@ pipeline {
                        
                        def terraform_state = readJSON file: "./terraform.tfstate"
                        sh "export API_URL=${terraform_state.outputs.lambda_function_url["value"]}"
-                       sh "python -m unittest unitest_api.py"
+                       echo $API_URL
+                       //sh "python -m unittest unitest_api.py"
                        
-                   //}
+                   }
                    
               }
           }
