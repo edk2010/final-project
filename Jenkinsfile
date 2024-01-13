@@ -63,7 +63,7 @@ pipeline {
  
     stage('run API unitest') {
            steps {
-               //script {
+               script {
                    // Start a container and keep it running
                    //dockerImage.inside("-u root") {
                        // Execute your unit test commands here
@@ -72,7 +72,7 @@ pipeline {
                        
                    //}
                    
-              //}
+              }
           }
       }
     }
