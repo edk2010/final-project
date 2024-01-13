@@ -67,7 +67,7 @@ pipeline {
                    // Start a container and keep it running
                    //dockerImage.inside("-u root") {
                        // Execute your unit test commands here
-                       pip install requests
+                       
                        def terraform_state = readJSON file: "./terraform.tfstate"
                        sh "export API_URL=${terraform_state.outputs.lambda_function_url["value"]}"
                        sh "python -m unittest unitest_api.py"
