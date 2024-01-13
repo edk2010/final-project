@@ -2,7 +2,7 @@ import unittest
 from mylambda import lambda_handler, add_user, get_user_by_user_id, get_user_by_user_name, delete_user_by_user_id
 
 
-# Import the functions to be tested, e.g., from your_app import add_user, get_user_by_user_id
+
 
 class TestUserFunctions(unittest.TestCase):
     def test_add_user(self):
@@ -15,16 +15,16 @@ class TestUserFunctions(unittest.TestCase):
 
     def test_get_user_by_user_id_found(self):
         data = [{"id": 1, "name": "user1"}]
-        user_id = 1  # Assuming id is an integer
+        user_id = 1  
         user = get_user_by_user_id(data, user_id)
         self.assertEqual(user, {"id": 1, "name": "user1"})
 
     def test_get_user_by_user_id_not_found(self):
         data = [{"id": 1, "name": "user1"}]
-        user_id = 2  # Assuming id is an integer
+        user_id = 2  
         user = get_user_by_user_id(data, user_id)
         self.assertIsNone(user)
 
-# This allows the test to be run from the command line
+
 if __name__ == '__main__':
     unittest.main()
