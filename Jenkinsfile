@@ -60,20 +60,14 @@ pipeline {
 
 
 
-    stage('get lambda_function_url') {
-        steps {
-            script {
-            def terraform_state = readJSON file: "./terraform.tfstate"
-            echo "${terraform_state.outputs.lambda_function_url["value"]}"
-            }
-    }
-}
+ 
     stage('run API unitest') {
            steps {
                //script {
                    // Start a container and keep it running
                    //dockerImage.inside("-u root") {
                        // Execute your unit test commands here
+                       def terraform_state = readJSON file: "./terraform.tfstate"
                        sh "python -m unittest unitest_api.py ${terraform_state.outputs.lambda_function_url["value"]}"
                        
                    //}
