@@ -24,7 +24,8 @@ def lambda_handler(event, context):
 
     # Default to None if the specific query parameter is not found
     operation = query_params.get('operation')
-    user_id = query_params.get('user_id')
+    user_id = query_params.get('user_id')   
+
     user_name = query_params.get('user_name')
     
     
@@ -112,6 +113,7 @@ def read_json_from_s3(bucket, key):
 # Function to write JSON data to S3
 def write_json_to_s3(data, bucket, key):
     s3.put_object(Body=json.dumps(data, indent=4), Bucket=bucket, Key=key)
+    return True
 
 # Function to add a new user
 
@@ -120,10 +122,10 @@ def add_user(data,user_name):
     new_user = {}
     #employee = 'new5'
 
-    new_user['id'] = len(data) + 1
+    new_user['id'] = get_maximum_id(data) + 1
     new_user['name'] = user_name
     data.append(new_user)
-    #write_json_to_s3(data, bucket, key)
+    write_json_to_s3(data, bucket_name, file_key)
     return True
 
 def get_user_by_user_id(data, user_id):
@@ -139,7 +141,11 @@ def delete_user_by_user_id(data,user_id):
         return None
 
     data = [e for e in data if e['id'] != int(user_id)]
-     #write_json_to_s3(data, bucket, key)
+    write_json_to_s3(data, bucket_name, file_key)
     return True
+
 def get_maximum_id(data):
-    pass
+    existing_ids = [user.get('id', 0) for user in data]
+    # Calculate the maximum ID
+    max_id = max(existing_ids)
+    return max_id
