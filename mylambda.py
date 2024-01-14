@@ -125,7 +125,7 @@ def add_user(data,user_name):
     new_user['id'] = get_maximum_id(data) + 1
     new_user['name'] = user_name
     data.append(new_user)
-    #write_json_to_s3(data, bucket_name, file_key)
+    write_json_to_s3(data, bucket_name, file_key)
     return True
 
 def get_user_by_user_id(data, user_id):
@@ -141,7 +141,7 @@ def delete_user_by_user_id(data,user_id):
         return None
 
     data = [e for e in data if e['id'] != int(user_id)]
-    #write_json_to_s3(data, bucket_name, file_key)
+    write_json_to_s3(data, bucket_name, file_key)
     return True
 
 def get_maximum_id(data):
