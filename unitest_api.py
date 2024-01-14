@@ -1,13 +1,15 @@
 import requests
 import unittest
 import os
+import sys
 
 class APITestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         cls.api_url = os.environ.get('API_URL')
-
+        cls.api_url = sys.argv[1]
+        
     def test_get_request(self):
         """Test GET request to a sample API endpoint"""
         response = requests.get(f'{self.api_url}')
@@ -20,6 +22,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="API Test")
     parser.add_argument('api_url', type=str, help='URL of the API to test')
     args = parser.parse_args()
-    
-    os.environ['API_URL'] = args.api_url
+    API_URL = sys.argv[1]
+    #os.environ['API_URL'] = args.api_url
     unittest.main()

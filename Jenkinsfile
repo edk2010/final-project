@@ -70,9 +70,9 @@ pipeline {
                        // Execute your unit test commands here
                        
                        def terraform_state = readJSON file: "./terraform.tfstate"
-                       sh "export API_URL=${terraform_state.outputs.lambda_function_url["value"]}"
-                       sh 'echo $API_URL'
-                       //sh "python -m unittest unitest_api.py"
+                       //sh "export API_URL=${terraform_state.outputs.lambda_function_url["value"]}"
+                       //sh 'echo $API_URL'
+                       sh "python unitest_api.py ${terraform_state.outputs.lambda_function_url["value"]}"
                        
                    }
                    
