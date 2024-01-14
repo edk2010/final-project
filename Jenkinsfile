@@ -34,14 +34,9 @@ pipeline {
 
         
 
-        stage('upload-docker') {
-            steps {
-                echo 'hello world'
-                
-            }
        
-         }
           stage ('Terraform Init'){
+
             steps {
             sh "terraform init"
           }
@@ -52,6 +47,9 @@ pipeline {
          }
       }
          stage ('Terraform Apply & Deploy lambda and s3'){
+            when {
+                branch 'main'
+                }
             steps {
             sh "terraform apply -auto-approve"
         }
@@ -62,6 +60,9 @@ pipeline {
 
  
     stage('run API unitest') {
+        when {
+            branch 'main'
+            }
            steps {
             //node {
                script {
