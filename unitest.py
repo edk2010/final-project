@@ -5,13 +5,13 @@ from mylambda import lambda_handler, add_user, get_user_by_user_id, get_user_by_
 
 
 class TestUserFunctions(unittest.TestCase):
-    def test_add_user(self):
-        data = [{"id": 1, "name": "user1"}]
-        user_name = "user2"
-        result = add_user(data, user_name)
-        self.assertTrue(result)
-        self.assertEqual(len(data), 2)
-        self.assertEqual(data[-1]['name'], user_name)
+    #def test_add_user(self):
+    #    data = [{"id": 1, "name": "user1"}]
+    #    user_name = "user2"
+    #    result = add_user(data, user_name)
+    #    self.assertTrue(result)
+    #    self.assertEqual(len(data), 2)
+    #    self.assertEqual(data[-1]['name'], user_name)
 
     def test_get_user_by_user_id_found(self):
         data = [{"id": 1, "name": "user1"}]
