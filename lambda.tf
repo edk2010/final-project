@@ -37,7 +37,7 @@ resource "aws_lambda_function" "test_lambda" {
   function_name = "lambda_function_name"
   role          = data.aws_iam_role.lambda_rw_s3.arn
   handler       = "mylambda.lambda_handler"
-
+  publish       = true
   source_code_hash = data.archive_file.mylambda.output_base64sha256
 
   runtime = "python3.10"
