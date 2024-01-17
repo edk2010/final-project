@@ -110,7 +110,7 @@ output "result_entry" {
 }
 
 output "lambda_function_prod_version" {
-  value = data.aws_lambda_alias.prod_version.function_version
+  value = data.aws_lambda_alias.test_version.function_version
 
 }
 
