@@ -46,9 +46,9 @@ resource "aws_lambda_function" "test_lambda" {
 }
 
 
-data "aws_lambda_alias" "prod_version"{
+data "aws_lambda_alias" "test_version"{
 
-  name = "prod"
+  name = "test"
   function_name = aws_lambda_function.test_lambda.arn
 
 }
@@ -74,7 +74,11 @@ resource "aws_lambda_alias" "prod_alias" {
   name             = "prod"
   description      = "Production alias"
   function_name    = aws_lambda_function.test_lambda.arn
-  function_version = data.aws_lambda_alias.prod_version.function_version ? data.aws_lambda_alias.prod_version.function_version : "$LATEST"
+  function_version = data.aws_lambda_alias.test_version.function_version //? data.aws_lambda_alias.prod_version.function_version : "$LATEST"
+  depends_on = [
+    "aws_lambda_invocation"
+  ]
+
 }
 
 
