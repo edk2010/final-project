@@ -116,8 +116,6 @@ value = aws_lambda_function_url.test_lambda.function_url
 
 }
   
-<<<<<<< HEAD
-=======
 output "prod_lambda_function_url"{
 
 value = aws_lambda_function_url.prod_alias_url.function_url
@@ -128,4 +126,4 @@ output "test_lambda_function_url"{
 value = aws_lambda_function_url.test_alias_url.function_url
 
 }
->>>>>>> Dev
+
