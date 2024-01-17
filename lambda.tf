@@ -64,6 +64,12 @@ resource "aws_lambda_function_url" "test_alias_url" {
   authorization_type = "NONE"
 }
 
+resource "aws_lambda_function_url" "test_lambda" {
+  
+  function_name      = aws_lambda_function.test_lambda.arn
+  authorization_type = "NONE"
+}
+
 resource "aws_lambda_alias" "prod_alias" {
   name             = "prod"
   description      = "Production alias"
