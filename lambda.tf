@@ -91,7 +91,7 @@ resource "aws_lambda_invocation" "test_alias" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      aws_lambda_function.example.environment
+      aws_lambda_function.test_lambda.environment
     ]))
   }
 
@@ -102,7 +102,7 @@ resource "aws_lambda_invocation" "test_alias" {
 }
 
 output "result_entry" {
-  value = jsondecode(aws_lambda_invocation.example.result)
+  value = jsondecode(aws_lambda_function.test_lambda.result)
 }
 
 output "lambda_function_prod_version" {
