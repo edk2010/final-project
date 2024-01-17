@@ -67,8 +67,9 @@ pipeline {
             //node {
                script {
                    // Start a container and keep it running
-                   //dockerImage.inside("-u root") {
-                       // Execute your unit test commands here
+                   /function_name      = aws_lambda_function.test_lambda.function_name
+                    authorization_type = "NONE"/dockerImage.inside("-u root") {
+                       
                        
                        def terraform_state = readJSON file: "./terraform.tfstate"
                        //sh "export API_URL=${terraform_state.outputs.lambda_function_url["value"]}"
