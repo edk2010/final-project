@@ -76,7 +76,7 @@ resource "aws_lambda_alias" "prod_alias" {
   function_name    = aws_lambda_function.test_lambda.arn
   function_version = data.aws_lambda_alias.test_version.function_version //? data.aws_lambda_alias.prod_version.function_version : "$LATEST"
   
-depends_on = [jsondecode(aws_lambda_invocation.test_alias.result)]
+depends_on = [aws_lambda_invocation.test_alias]
 }
 
 
