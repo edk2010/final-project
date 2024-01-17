@@ -86,10 +86,24 @@ resource "aws_lambda_alias" "test_alias" {
 }
 
 
-//test api 
+resource "aws_lambda_invocation" "test_alias" {
+  function_name = "${aws_lambda_function.test_lambda.arn}:test"
 
-// if test is ok :  
+  triggers = {
+    redeployment = sha1(jsonencode([
+      aws_lambda_function.example.environment
+    ]))
+  }
 
+  input = jsonencode({
+    key1 = "value1"
+    key2 = "value2"
+  })
+}
+
+output "result_entry" {
+  value = jsondecode(aws_lambda_invocation.example.result)
+}
 
 output "lambda_function_prod_version" {
   value = data.aws_lambda_alias.prod_version.function_version
