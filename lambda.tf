@@ -57,6 +57,8 @@ resource "aws_lambda_function_url" "prod_alias_url" {
   
   function_name      = "${aws_lambda_function.test_lambda.arn}:prod"
   authorization_type = "NONE"
+  depends_on = [aws_lambda_alias.prod_alias]
+
 }
 resource "aws_lambda_function_url" "test_alias_url" {
   
