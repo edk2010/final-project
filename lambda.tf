@@ -18,12 +18,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 
 */
-data "aws_lmbda_fuction" "prod_name"{
 
-
-
-
-}
 data "archive_file" "mylambda" {
   type        = "zip"
   source_file = "./mylambda.py"
@@ -53,7 +48,7 @@ resource "aws_lambda_function" "test_lambda" {
 
 data "aws_lambda_alias" "prod_version"{
 
-  name = aws_lambda_alias.prod_alias.name
+  name = "prod"
   function_name = aws_lambda_function.test_lambda.arn
 
 }
