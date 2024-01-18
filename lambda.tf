@@ -78,7 +78,7 @@ resource "aws_lambda_alias" "prod_alias" {
   function_name    = aws_lambda_function.test_lambda.arn
   function_version = data.aws_lambda_alias.test_version.function_version //? data.aws_lambda_alias.prod_version.function_version : "$LATEST"
   
-depends_on = [aws_lambda_invocation.test_alias]
+//depends_on = [aws_lambda_invocation.test_alias]
 }
 
 
@@ -90,23 +90,33 @@ resource "aws_lambda_alias" "test_alias" {
 }
 
 
-resource "aws_lambda_invocation" "test_alias" {
-  function_name = "${aws_lambda_function.test_lambda.arn}:test"
+//resource "aws_lambda_invocation" "test_alias" {
+//  function_name = "${aws_lambda_function.test_lambda.arn}:test"
+//
+//  triggers = {
+//    redeployment = sha1(jsonencode([
+//      aws_lambda_function.test_lambda.environment
+//    ]))
+//  }
+//
+//  input = jsonencode({
+//    key1 = "value1"
+//    key2 = "value2"
+//  })
+//}
 
-  triggers = {
-    redeployment = sha1(jsonencode([
-      aws_lambda_function.test_lambda.environment
-    ]))
+//output "result_entry" {
+//  value = jsondecode(aws_lambda_invocation.test_alias.result)
+//}
+//
+
+
+resource "null_resource" "check_deploy" {
+  provisioner "local-exec" {
+      command = "python unitest_api.py ${aws_lambda_function_url.test_lambda.function_url}"
   }
 
-  input = jsonencode({
-    key1 = "value1"
-    key2 = "value2"
-  })
-}
-
-output "result_entry" {
-  value = jsondecode(aws_lambda_invocation.test_alias.result)
+  depends_on = ["aws_lambda_alias.test_alias"]
 }
 
 output "lambda_function_prod_version" {
