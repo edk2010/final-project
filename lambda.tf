@@ -1,23 +1,4 @@
-/*
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    effect = "Allow"
 
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
-  }
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name               = "iam_for_lambda"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
-}
-
-*/
 
 data "archive_file" "mylambda" {
   type        = "zip"
@@ -118,6 +99,10 @@ resource "null_resource" "check_deploy" {
 
 data "aws_lambda_function" "final-project" {
   function_name = aws_lambda_function.final-project.arn
+}
+
+output "lambda_function_versions" {
+  value = null_resource.check_deploy.command
 }
 
 output "lambda_function_versions" {
