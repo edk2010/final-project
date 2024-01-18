@@ -72,7 +72,7 @@ resource "aws_lambda_function_url" "prod_alias_url" {
 }
 resource "aws_lambda_function_url" "test_alias_url" {
   
-  function_name      = "${aws_lambda_function.final-proj  publish          = trueect.arn}:test"
+  function_name      = "${aws_lambda_function.final-project.arn}:test"
   authorization_type = "NONE"
   depends_on = [aws_lambda_alias.test_alias]
 
