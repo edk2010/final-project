@@ -102,7 +102,7 @@ data "aws_lambda_function" "final-project" {
 }
 
 output "lambda_check_deploy" {
-  value = null_resource.check_deploy.provisioner.local-exec.command
+  value = null_resource.check_deploy.provisioner.local-exec
 }
 
 output "lambda_function_versions" {
