@@ -118,7 +118,7 @@ resource "null_resource" "check_deploy" {
       command = "python unitest_api.py ${aws_lambda_function_url.test_lambda.function_url}"
   }
 
-  depends_on = ["aws_lambda_alias.test_alias"]
+  depends_on = [aws_lambda_alias.test_alias]
 }
 
 output "lambda_function_prod_version" {
