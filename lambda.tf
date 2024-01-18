@@ -50,6 +50,7 @@ data "aws_lambda_alias" "test_version"{
 
   name = "test"
   function_name = aws_lambda_function.test_lambda.arn
+  depends_on = [ aws_lambda_alias.test_alias ]
 
 }
 
