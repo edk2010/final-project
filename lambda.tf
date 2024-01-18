@@ -88,7 +88,7 @@ resource "aws_lambda_alias" "test_alias" {
 
 resource "null_resource" "check_deploy" {
   provisioner "local-exec" {
-      command = "python unitest_api.py ${data.aws_lambda_function_url.test_alias_url.function_url} > output.json"
+      command = "python unitest_api.py ${data.aws_lambda_function_url.test_alias_url.function_url}"
       
   }
 
@@ -102,7 +102,7 @@ data "aws_lambda_function" "final-project" {
 }
 
 output "lambda_check_deploy" {
-  value = null_resource.check_deploy
+  value = null_resource.check_deploy.provisioner.local-exec.command
 }
 
 output "lambda_function_versions" {
