@@ -86,10 +86,10 @@ def lambda_handler(event, context):
     # You can add your business logic here
     # For demonstration, we will just return the received parameters
     response_body = {
-        "receivedParam1": operation,
-        "receivedParam2": user_id,
-        "full_name": user_name,
-        "Data": data,
+    #    "receivedParam1": operation,
+    #    "receivedParam2": user_id,
+    #    "full_name": user_name,
+    #    "Data": data,
         "message": message
     }
 
