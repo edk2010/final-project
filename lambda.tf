@@ -34,7 +34,7 @@ resource "aws_lambda_function" "test_lambda" {
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
   filename      = "lambda_function_payload.zip"
-  function_name = "lambda_function_name"
+  function_name = "final-project"
   role          = data.aws_iam_role.lambda_rw_s3.arn
   handler       = "mylambda.lambda_handler"
   publish       = true
