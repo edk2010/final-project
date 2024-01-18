@@ -101,7 +101,7 @@ data "aws_lambda_function" "final-project" {
   function_name = aws_lambda_function.final-project.arn
 }
 
-output "lambda_function_versions" {
+output "lambda_check_deploy" {
   value = null_resource.check_deploy.command
 }
 
