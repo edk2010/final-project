@@ -22,7 +22,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 data "archive_file" "mylambda" {
   type        = "zip"
   source_file = "./mylambda.py"
-  output_path = "lambda_function_payload.zip"
+  output_path = "lambda_function_payload_v1.zip"
 }
 
 data "aws_iam_role" "lambda_rw_s3"{
@@ -33,7 +33,7 @@ data "aws_iam_role" "lambda_rw_s3"{
 resource "aws_lambda_function" "final-project" {
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
-  filename      = "lambda_function_payload.zip"
+  filename      = "lambda_function_payload_v1.zip"
   function_name = "final-project"
   role          = data.aws_iam_role.lambda_rw_s3.arn
   handler       = "mylambda.lambda_handler"
