@@ -54,6 +54,8 @@ data "aws_lambda_alias" "test_version"{
 
 }
 
+
+
 resource "aws_lambda_function_url" "prod_alias_url" {
   
   function_name      = "${aws_lambda_function.test_lambda.arn}:prod"
@@ -121,6 +123,17 @@ resource "null_resource" "check_deploy" {
 
   depends_on = [aws_lambda_alias.test_alias]
 }
+
+
+
+data "aws_lambda_function" "final-project" {
+  function_name = "final-project"
+}
+
+output "lambda_function_versions" {
+  value = data.aws_lambda_function.final-project.version
+}
+
 
 output "lambda_function_prod_version" {
   value = data.aws_lambda_alias.test_version.function_version
