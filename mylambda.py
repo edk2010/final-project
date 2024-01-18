@@ -120,7 +120,7 @@ def write_json_to_s3(data, bucket, key):
         
 def add_user(data,user_name):
     new_user = {}
-    #employee = 'new5'
+    
 
     new_user['id'] = get_maximum_id(data) + 1
     new_user['name'] = user_name
