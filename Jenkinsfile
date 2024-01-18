@@ -68,7 +68,7 @@ pipeline {
                script {
                    // Start a container and keep it running
                    //function_name      = aws_lambda_function.test_lambda.function_name
-                    authorization_type = "NONE"/dockerImage.inside("-u root") {
+                    //authorization_type = "NONE"/dockerImage.inside("-u root") {
                        
                        
                        def terraform_state = readJSON file: "./terraform.tfstate"
@@ -76,7 +76,7 @@ pipeline {
                        //sh 'echo $API_URL'
                        sh "python unitest_api.py ${terraform_state.outputs.lambda_function_url["value"]}"
                        
-                   }
+                   //}
                    
              // }
           }
