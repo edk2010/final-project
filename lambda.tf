@@ -30,7 +30,7 @@ data "aws_iam_role" "lambda_rw_s3"{
     name = "lambda_rw_s3"
 
 }
-resource "aws_lambda_function" "test_lambda" {
+resource "aws_lambda_function" "final-project" {
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
   filename      = "lambda_function_payload.zip"
@@ -49,7 +49,7 @@ resource "aws_lambda_function" "test_lambda" {
 data "aws_lambda_alias" "test_version"{
 
   name = "test"
-  function_name = aws_lambda_function.test_lambda.arn
+  function_name = aws_lambda_function.final-project.arn
   depends_on = [ aws_lambda_alias.test_alias ]
 
 }
@@ -58,29 +58,29 @@ data "aws_lambda_alias" "test_version"{
 
 resource "aws_lambda_function_url" "prod_alias_url" {
   
-  function_name      = "${aws_lambda_function.test_lambda.arn}:prod"
+  function_name      = "${aws_lambda_function.final-project.arn}:prod"
   authorization_type = "NONE"
   depends_on = [aws_lambda_alias.prod_alias]
 
 }
 resource "aws_lambda_function_url" "test_alias_url" {
   
-  function_name      = "${aws_lambda_function.test_lambda.arn}:test"
+  function_name      = "${aws_lambda_function.final-project.arn}:test"
   authorization_type = "NONE"
   depends_on = [aws_lambda_alias.test_alias]
 
 }
 
-resource "aws_lambda_function_url" "test_lambda" {
+resource "aws_lambda_function_url" "final-project" {
   
-  function_name      = aws_lambda_function.test_lambda.arn
+  function_name      = aws_lambda_function.final-project.arn
   authorization_type = "NONE"
 }
 
 resource "aws_lambda_alias" "prod_alias" {
   name             = "prod"
   description      = "Production alias"
-  function_name    = aws_lambda_function.test_lambda.arn
+  function_name    = aws_lambda_function.final-project.arn
   function_version = data.aws_lambda_alias.test_version.function_version //? data.aws_lambda_alias.prod_version.function_version : "$LATEST"
   
 //depends_on = [aws_lambda_invocation.test_alias]
@@ -90,17 +90,17 @@ resource "aws_lambda_alias" "prod_alias" {
 resource "aws_lambda_alias" "test_alias" {
   name             = "test"
   description      = "pred prod test alias"
-  function_name    = aws_lambda_function.test_lambda.arn
+  function_name    = aws_lambda_function.final-project.arn
   function_version = "$LATEST"
 }
 
 
 //resource "aws_lambda_invocation" "test_alias" {
-//  function_name = "${aws_lambda_function.test_lambda.arn}:test"
+//  function_name = "${aws_lambda_function.final-project.arn}:test"
 //
 //  triggers = {
 //    redeployment = sha1(jsonencode([
-//      aws_lambda_function.test_lambda.environment
+//      aws_lambda_function.final-project.environment
 //    ]))
 //  }
 //
@@ -142,7 +142,7 @@ output "lambda_function_prod_version" {
 
 output "lambda_function_url"{
 
-value = aws_lambda_function_url.test_lambda.function_url
+value = aws_lambda_function_url.final-project.function_url
 
 }
   
