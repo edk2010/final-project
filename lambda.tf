@@ -57,6 +57,7 @@ data "aws_lambda_alias" "test_version"{
 data "aws_lambda_function_url" "test_alias_url"{
 
 function_name = "${aws_lambda_function.final-project.arn}:test"
+depends_on = [ aws_lambda_alias.test_alias ]
 
 }
 
