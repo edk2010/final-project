@@ -132,7 +132,7 @@ resource "null_resource" "check_deploy" {
 
 
 data "aws_lambda_function" "final-project" {
-  function_name = "final-project"
+  function_name = aws_lambda_function.final-project.arn
 }
 
 output "lambda_function_versions" {
