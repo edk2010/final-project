@@ -19,10 +19,10 @@ def lambda_handler(event, context):
         }
     
 
-    # Safely get the queryStringParameters
+    
     query_params = event.get('queryStringParameters', {})
 
-    # Default to None if the specific query parameter is not found
+   
     operation = query_params.get('operation')
     user_id = query_params.get('user_id')   
 
@@ -79,12 +79,12 @@ def lambda_handler(event, context):
             else:
                 message = f'something went wrong'
         case _ :
-            message = "You do not have any acce"
+            message = "You do not have permission"
             
     
     
-    # You can add your business logic here
-    # For demonstration, we will just return the received parameters
+    # 
+    # 
     response_body = {
     #    "receivedParam1": operation,
     #    "receivedParam2": user_id,
