@@ -101,9 +101,9 @@ data "aws_lambda_function" "final-project" {
   function_name = aws_lambda_function.final-project.arn
 }
 
-output "lambda_check_deploy" {
-  value = null_resource.check_deploy.provisioner.local-exec
-}
+//output "lambda_check_deploy" {
+//  value = null_resource.check_deploy
+//}
 
 output "lambda_function_versions" {
   value = data.aws_lambda_function.final-project.version
