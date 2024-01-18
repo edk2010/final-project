@@ -67,7 +67,7 @@ pipeline {
             //node {
                script {
                    // Start a container and keep it running
-                   /function_name      = aws_lambda_function.test_lambda.function_name
+                   //function_name      = aws_lambda_function.test_lambda.function_name
                     authorization_type = "NONE"/dockerImage.inside("-u root") {
                        
                        
