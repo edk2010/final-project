@@ -64,7 +64,7 @@ resource "aws_lambda_function_url" "test_alias_url" {
   
   function_name      = "${aws_lambda_function.test_lambda.arn}:test"
   authorization_type = "NONE"
-  depends_on = [ "aws_lambda_alias.test_alias" ]
+  depends_on = [aws_lambda_alias.test_alias]
 
 }
 
