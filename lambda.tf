@@ -72,7 +72,7 @@ resource "aws_lambda_function_url" "prod_alias_url" {
 }
 resource "aws_lambda_function_url" "test_alias_url" {
   
-  function_name      = "${aws_lambda_function.final-project.arn}:test"
+  function_name      = "${aws_lambda_function.final-proj  publish          = trueect.arn}:test"
   authorization_type = "NONE"
   depends_on = [aws_lambda_alias.test_alias]
 
@@ -102,25 +102,7 @@ resource "aws_lambda_alias" "test_alias" {
 }
 
 
-//resource "aws_lambda_invocation" "test_alias" {
-//  function_name = "${aws_lambda_function.final-project.arn}:test"
-//
-//  triggers = {
-//    redeployment = sha1(jsonencode([
-//      aws_lambda_function.final-project.environment
-//    ]))
-//  }
-//
-//  input = jsonencode({
-//    key1 = "value1"
-//    key2 = "value2"
-//  })
-//}
 
-//output "result_entry" {
-//  value = jsondecode(aws_lambda_invocation.test_alias.result)
-//}
-//
 
 
 resource "null_resource" "check_deploy" {
